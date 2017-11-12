@@ -18,5 +18,10 @@
 			<artifactId>tianti-common</artifactId>
 			<version>${tianti.version}</version>
 	 </dependency>
+      <dependency>
+          <groupId>com.jeff.tianti.org</groupId>
+          <artifactId>tianti-org</artifactId>
+          <version>${tianti.version}</version>
+      </dependency>
   </dependencies>
 </project>

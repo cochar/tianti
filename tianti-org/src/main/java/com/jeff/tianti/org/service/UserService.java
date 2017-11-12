@@ -36,6 +36,24 @@ public class UserService extends CommonService<User,String>{
 		return user;
 	}
 
+	public User findUserByEmail(String email){
+		User user = null;
+		List<User> userList = this.userDao.findUserByEmail(email);
+		if(userList != null && userList.size() > 0){
+			user = userList.get(0);
+		}
+		return user;
+	}
+
+	public User findUserByMobile(String mobile){
+		User user = null;
+		List<User> userList = this.userDao.findUserByMobile(mobile);
+		if(userList != null && userList.size() > 0){
+			user = userList.get(0);
+		}
+		return user;
+	}
+
 	public List<User> findUsers(Map<String, Object> params) {
 		return userDao.findUsers(params);
 	}
@@ -78,5 +96,18 @@ public class UserService extends CommonService<User,String>{
 	public PageModel<User> queryUserPage(UserQueryDTO userQueryDTO){
 		return this.userDao.queryUserPage(userQueryDTO);
 	}
-	
+
+	/**
+	 * 根据企业Id查用户
+	 * @param companyId
+	 * @return
+	 */
+	public User findUserByCompanyId(String companyId){
+		User user = null;
+		List<User> userList = this.userDao.findUserByCompanyId(companyId);
+		if(userList != null && userList.size() > 0){
+			user = userList.get(0);
+		}
+		return user;
+	}
 }

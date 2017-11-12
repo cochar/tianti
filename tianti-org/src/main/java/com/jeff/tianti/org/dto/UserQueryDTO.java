@@ -1,5 +1,6 @@
 package com.jeff.tianti.org.dto;
-import com.jeff.tianti.common.dto.CommonQueryDTO;
+
+import com.jeff.tianti.common.dto.CommonQueryDTO;
 /**
  * 后台用户查询信息封装
  * @author Jeff Xu
@@ -9,6 +10,8 @@ public class UserQueryDTO extends CommonQueryDTO{
 	
 	//账号
 	private String userName;
+	//企业ID
+	private String companyId;
 
 	public String getUserName() {
 		return userName;
@@ -16,6 +19,14 @@ public class UserQueryDTO extends CommonQueryDTO{
 
 	public void setUserName(String userName) {
 		this.userName = userName;
+	}
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
 	}
 
 }

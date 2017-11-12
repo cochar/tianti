@@ -74,6 +74,10 @@ public class ArticleDaoImpl extends CustomBaseSqlDaoImpl implements ArticleDaoCu
         			 hql.append(" and t.isTop =1 ");
         		 }
         	 }
+			 if(StringUtils.isNotBlank(articleQueryDTO.getCompanyId())){
+				 hql.append(" and t.user.companyId = :companyId ");
+				 map.put("companyId", articleQueryDTO.getCompanyId());
+			 }
          }
          hql.append(" order by t.createDate desc ");
          return this.queryForPageWithParams(hql.toString(),map,articleQueryDTO.getCurrentPage(),articleQueryDTO.getPageSize());
@@ -118,6 +122,10 @@ public class ArticleDaoImpl extends CustomBaseSqlDaoImpl implements ArticleDaoCu
         			 hql.append(" and t.isTop =1 ");
         		 }
         	 }
+			 if(StringUtils.isNotBlank(articleQueryDTO.getCompanyId())){
+				 hql.append(" and t.user.companyId = :companyId ");
+				 map.put("companyId", articleQueryDTO.getCompanyId());
+			 }
          }
          hql.append(" order by t.createDate desc ");
          if(articleQueryDTO.getTop() != null){

@@ -52,7 +52,9 @@ public class User extends BaseEntity{
 	private Integer type;						//0 为管理员
 	
 	private String currentSkin;                 //当前皮肤
-	
+
+	private String companyId;
+
 	@Column(name = "username",length=50)
 	public String getUsername() {
 		return username;
@@ -137,6 +139,15 @@ public class User extends BaseEntity{
 
 	public void setCurrentSkin(String currentSkin) {
 		this.currentSkin = currentSkin;
+	}
+
+	@Column(name = "company_id",length=32)
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
 	}
 
 }

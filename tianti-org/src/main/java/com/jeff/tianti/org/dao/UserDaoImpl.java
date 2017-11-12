@@ -29,6 +29,11 @@ public class UserDaoImpl extends CustomBaseSqlDaoImpl implements SystemUserDao{
 		if(username != null){
 			sb.append(" and u.username = :username ");
 		}
+
+		Object companyId = params.get("companyId");
+		if(companyId != null){
+			sb.append(" and u.companyId = :companyId ");
+		}
 		
 		sb.append("order by u.createDate desc");
 		
@@ -43,10 +48,14 @@ public class UserDaoImpl extends CustomBaseSqlDaoImpl implements SystemUserDao{
 	public PageModel<User> queryUserPage(UserQueryDTO userQueryDTO){
 		Map<String,Object> params = new HashMap<String,Object>();
 		StringBuilder hql = new StringBuilder();
-		hql.append(" select u from User u where 1=1 ");//企业id=管理员企业id
+		hql.append(" select u from User u where 1=1 ");
 		if(StringUtils.isNotBlank(userQueryDTO.getUserName())){
 			hql.append(" and u.username like :username ");
 			params.put("username", "%"+userQueryDTO.getUserName()+"%");
+		}
+		if(StringUtils.isNotBlank(userQueryDTO.getCompanyId())){
+			hql.append(" and u.companyId = :companyId ");
+			params.put("companyId", userQueryDTO.getCompanyId());
 		}
 		hql.append(" order by u.createDate desc ");
 		return this.queryForPageWithParams(hql.toString(), params, userQueryDTO.getCurrentPage(), userQueryDTO.getPageSize());

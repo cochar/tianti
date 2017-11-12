@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.jeff.tianti.common.entity.BaseEntity;
+import com.jeff.tianti.org.entity.User;
+
 /**
  * 文章信息实体
  * @author Jeff Xu
@@ -69,6 +71,11 @@ public class Article extends BaseEntity{
 	//排序
 	private Integer orderNo;
 
+//	//creator_id
+//	private String creatorId;
+
+	//creator
+	private User user;
 	@ManyToOne
 	@JoinColumn(name = "column_info_id")
 	public ColumnInfo getColumnInfo() {
@@ -87,6 +94,16 @@ public class Article extends BaseEntity{
 
 	public void setRootColumnInfo(ColumnInfo rootColumnInfo) {
 		this.rootColumnInfo = rootColumnInfo;
+	}
+
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Column(name = "type")
@@ -196,5 +213,14 @@ public class Article extends BaseEntity{
 	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
+
+//	@Column(name = "creator_id",length = 32)
+//	public String getCreatorId() {
+//		return creatorId;
+//	}
+//
+//	public void setCreatorId(String creatorId) {
+//		this.creatorId = creatorId;
+//	}
 
 }

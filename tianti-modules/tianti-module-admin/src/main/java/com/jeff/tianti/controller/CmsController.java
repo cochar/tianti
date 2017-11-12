@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.jeff.tianti.org.entity.User;
+import com.jeff.tianti.util.WebHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -248,6 +250,7 @@ public class CmsController {
 		String pageSizeStr = request.getParameter("pageSize");
 		int currentPage = 1;
 		int pageSize = 10;
+		User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
 		if(StringUtils.isNotBlank(currentPageStr)){
 			currentPage = Integer.parseInt(currentPageStr);
 		}
@@ -298,6 +301,8 @@ public class CmsController {
 		articleQueryDTO.setCreateDateSortCss(createDateSortCss);
 		articleQueryDTO.setCurrentPage(currentPage);
 		articleQueryDTO.setPageSize(pageSize);
+		if(StringUtils.isNoneEmpty(user.getCompanyId()))
+			articleQueryDTO.setCompanyId(user.getCompanyId());
 		
 		PageModel<Article> page = this.articleService.queryArticlePage(articleQueryDTO);
 		List<Map<String,Object>> statisMapList = this.articleService.queryStatisMapList(articleQueryDTO);

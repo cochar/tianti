@@ -1,5 +1,6 @@
 package com.jeff.tianti.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +64,8 @@ public class UserController {
 		String userName = request.getParameter("userName");
 		String currentPageStr = request.getParameter("currentPage");
 		String pageSizeStr = request.getParameter("pageSize");
-		
+		User user = WebHelper.getUser(request);
+
 		int currentPage = 1;
 		int pageSize = 10;
 		if(StringUtils.isNotBlank(currentPageStr)){
@@ -77,8 +79,10 @@ public class UserController {
 		userQueryDTO.setUserName(userName);
 		userQueryDTO.setCurrentPage(currentPage);
 		userQueryDTO.setPageSize(pageSize);
+		if(StringUtils.isNoneEmpty(user.getCompanyId()))
+			userQueryDTO.setCompanyId(user.getCompanyId());
 		
-		PageModel<User> page = userService.queryUserPage(userQueryDTO);//加上企业id
+		PageModel<User> page = userService.queryUserPage(userQueryDTO);
 		model.addAttribute("page", page);
 		model.addAttribute("userQueryDTO", userQueryDTO);
 		model.addAttribute(Constants.MENU_NAME, Constants.MENU_USER_LIST);
@@ -95,9 +99,13 @@ public class UserController {
 	@RequestMapping("/export")
 	public String exportOrder(HttpServletRequest request, HttpServletResponse response){	
 		String userName = request.getParameter("userName");
+		User currentUser = WebHelper.getUser(request);
 		Map<String, Object> params = new HashMap<String, Object>();
 		if(StringUtils.isNotBlank(userName)){
 			params.put("username", userName);
+		}
+		if(StringUtils.isNotBlank(currentUser.getCompanyId())){
+			params.put("companyId", currentUser.getCompanyId());
 		}
 
 		List<User> userList = this.userService.findUsers(params);
@@ -653,5 +661,39 @@ public class UserController {
 		
 		return ajaxResult;
 	}
-	
+
+	@RequestMapping("/toRegister")
+	public String toRegister(HttpServletRequest request){
+		return "register";
+	}
+
+	@RequestMapping("/ajax/register")
+	@ResponseBody
+	public AjaxResult register(HttpServletRequest request,User user,HttpServletResponse response) throws IOException {
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setSuccess(false);
+		if(userService.findUserByMobile(user.getMobile())!=null)
+			ajaxResult.setMsg("手机号已被注册！");
+		else if(userService.findUserByEmail(user.getEmail())!=null)
+			ajaxResult.setMsg("邮箱已被注册！");
+		else if(userService.findUserByName(user.getUsername())!=null)
+			ajaxResult.setMsg("用户名已存在！");
+		else {
+			try {
+				Set<Role> set = new HashSet<Role>();
+				set.add(roleService.find("402880895f8effed015f8f1ce36d0002")); //新注册用户角色
+				user.setRoles(set);
+				user.setPassword(Md5Util.generatePassword(user.getPassword()));//可考虑前端加密
+				user.setType(0);
+				userService.save(user);
+				ajaxResult.setSuccess(true);
+			} catch (Exception e) {
+				ajaxResult.setMsg("注册失败");
+				e.printStackTrace();
+			}
+		}
+//		response.sendRedirect("XXX.jsp或者servlet");
+		return ajaxResult;
+	}
+
 }

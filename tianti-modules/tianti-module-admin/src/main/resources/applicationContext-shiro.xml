@@ -70,6 +70,9 @@
 	    <!-- rememberAuthFilter -->  
 	    <property name="filterChainDefinitions">  
 	        <value>
+				/user/ajax/validator/username = anon
+				/user/ajax/register = anon
+				/user/toRegister = anon
 	        	 /index = anon
 	        	 /error_page = anon
 	        	 /static/** = anon

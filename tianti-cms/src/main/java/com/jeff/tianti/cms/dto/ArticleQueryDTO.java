@@ -2,6 +2,8 @@ package com.jeff.tianti.cms.dto;
 
 import com.jeff.tianti.common.dto.CommonQueryDTO;
 
+import javax.lang.model.element.NestingKind;
+
 /**
  * @author xujianfang
  * @desc ArticleQueryDTO 
@@ -35,6 +37,9 @@ public class ArticleQueryDTO extends CommonQueryDTO{
 	
 	// 逻辑删除
 	private String deleteFlag;
+
+	//企业ID
+	private String companyId;
 	
 	//按发布日期排序样式：up为升序，down为降序
 	private String createDateSortCss;
@@ -117,6 +122,14 @@ public class ArticleQueryDTO extends CommonQueryDTO{
 
 	public void setTop(Integer top) {
 		this.top = top;
+	}
+
+	public String getCompanyId() {
+		return companyId;
+	}
+
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
 	}
 
 }
