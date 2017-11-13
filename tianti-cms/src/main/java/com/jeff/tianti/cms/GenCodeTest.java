@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.jeff.tianti.cms.entity.Article;
 import com.jeff.tianti.cms.entity.ColumnInfo;
+import com.jeff.tianti.cms.entity.Product;
+import com.jeff.tianti.cms.entity.Tech;
 import com.jeff.tianti.common.util.GenCodeUtil;
 
 public class GenCodeTest {
@@ -12,10 +14,10 @@ public class GenCodeTest {
 		//基本包目录（不用到entity那一层级）
 		String s = "com.jeff.tianti.cms";
 		//作者
-		String writer = "xujianfang";
+		String writer = "missC";
 		//Demo为Entity类（放上自己新增的实体类即可）
-		GenCodeTest.autoGenAllCode(ColumnInfo.class,s,writer);
-		GenCodeTest.autoGenAllCode(Article.class,s,writer);
+		GenCodeTest.autoGenAllCode(Product.class,s,writer);
+		GenCodeTest.autoGenAllCode(Tech.class,s,writer);
 	}
 	
 	/**

@@ -39,7 +39,8 @@ public class GenCodeUtil {
 			}
 			if(commonPackage != null && !commonPackage.equals("")){
 				dtoPath = commonPackage.replace(".", "/");
-				String fileName = System.getProperty("user.dir") + "/src/main/java/" + dtoPath+"/dto"
+				//增加子工程路径
+				String fileName = System.getProperty("user.dir") + "/tianti-cms" + "/src/main/java/" + dtoPath+"/dto"
 						+ "/" + getLastChar(cName) + "QueryDTO.java";
 				File f = new File(fileName);
 				FileWriter fw = new FileWriter(f);
@@ -105,7 +106,8 @@ public class GenCodeUtil {
 			}
 			if(commonPackage != null && !commonPackage.equals("")){
 				daoPath = commonPackage.replace(".", "/");
-				String fileName = System.getProperty("user.dir") + "/src/main/java/" + daoPath+"/dao"
+				//增加子工程路径
+				String fileName = System.getProperty("user.dir") + "/tianti-cms" + "/src/main/java/" + daoPath+"/dao"
 						+ "/" + getLastChar(cName) + "Dao.java";
 				File f = new File(fileName);
 				FileWriter fw = new FileWriter(f);
@@ -136,7 +138,8 @@ public class GenCodeUtil {
 			}
 			if(commonPackage != null && !commonPackage.equals("")){
 				daoPath = commonPackage.replace(".", "/");
-				String fileName = System.getProperty("user.dir") + "/src/main/java/" + daoPath+"/dao"
+				//增加子工程路径
+				String fileName = System.getProperty("user.dir") + "/tianti-cms" + "/src/main/java/" + daoPath+"/dao"
 						+ "/" + getLastChar(cName) + "DaoCustom.java";
 				File f = new File(fileName);
 				FileWriter fw = new FileWriter(f);
@@ -175,7 +178,8 @@ public class GenCodeUtil {
 			}
 			if(commonPackage != null && !commonPackage.equals("")){
 				daoPath = commonPackage.replace(".", "/");
-				String fileName = System.getProperty("user.dir") + "/src/main/java/" + daoPath+"/dao"
+				//增加子工程路径
+				String fileName = System.getProperty("user.dir") + "/tianti-cms" + "/src/main/java/" + daoPath+"/dao"
 						+ "/" + getLastChar(cName) + "DaoImpl.java";
 				File f = new File(fileName);
 				FileWriter fw = new FileWriter(f);
@@ -225,7 +229,8 @@ public class GenCodeUtil {
 			}
 			if(commonPackage != null && !commonPackage.equals("")){
 				servicePath = commonPackage.replace(".", "/");
-				String fileName = System.getProperty("user.dir") + "/src/main/java/" + servicePath+"/service"
+				//增加子工程路径
+				String fileName = System.getProperty("user.dir") + "/tianti-cms" + "/src/main/java/" + servicePath+"/service"
 						+ "/" + getLastChar(cName) + "Service.java";
 				File f = new File(fileName);
 				FileWriter fw = new FileWriter(f);

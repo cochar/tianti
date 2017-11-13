@@ -1,22 +1,17 @@
 package com.jeff.tianti.controller;
 
-import com.jeff.tianti.cms.dto.ArticleQueryDTO;
-import com.jeff.tianti.cms.entity.Article;
-import com.jeff.tianti.cms.service.ArticleService;
+import com.jeff.tianti.cms.dto.ProductQueryDTO;
+import com.jeff.tianti.cms.dto.TechQueryDTO;
+import com.jeff.tianti.cms.entity.Product;
+import com.jeff.tianti.cms.entity.Tech;
+import com.jeff.tianti.cms.service.ProductService;
+import com.jeff.tianti.cms.service.TechService;
 import com.jeff.tianti.common.dto.AjaxResult;
 import com.jeff.tianti.common.entity.PageModel;
-import com.jeff.tianti.org.dto.CompanyQueryDTO;
-import com.jeff.tianti.org.entity.Company;
-import com.jeff.tianti.org.entity.Resource;
-import com.jeff.tianti.org.entity.Role;
 import com.jeff.tianti.org.entity.User;
-import com.jeff.tianti.org.service.CompanyService;
-import com.jeff.tianti.org.service.RoleService;
-import com.jeff.tianti.org.service.UserService;
 import com.jeff.tianti.util.Constants;
 import com.jeff.tianti.util.WebHelper;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,30 +19,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
- * 企业的Controller
+ * 技术Controller
  * @author MissC
  */
 @Controller
-@RequestMapping("/com")
-public class CompanyController {
+@RequestMapping("/product")
+public class TechController {
 
     @Autowired
-    private CompanyService companyService;
-
-    @Autowired
-    private RoleService roleService;
-
-    @Autowired
-    private UserService userService;
+    private TechService techService;
 
     /**
-     * 获取企业列表
+     * 获取技术列表
      * @param request
      * @param model
      * @return
@@ -58,7 +43,7 @@ public class CompanyController {
         String pageSizeStr = request.getParameter("pageSize");
         int currentPage = 1;
         int pageSize = 10;
-//        User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
+        User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
         if(StringUtils.isNotBlank(currentPageStr)){
             currentPage = Integer.parseInt(currentPageStr);
         }
@@ -66,11 +51,14 @@ public class CompanyController {
             pageSize = Integer.parseInt(pageSizeStr);
         }
 
-        CompanyQueryDTO companyQueryDTO= new CompanyQueryDTO();
+        TechQueryDTO techQueryDTO= new TechQueryDTO();
 
-        companyQueryDTO.setCurrentPage(currentPage);
-        companyQueryDTO.setPageSize(pageSize);
-        PageModel<Company> page = this.companyService.queryCompanyPage(companyQueryDTO);
+        techQueryDTO.setCurrentPage(currentPage);
+        techQueryDTO.setPageSize(pageSize);
+
+        if(StringUtils.isNoneEmpty(user.getCompanyId()))
+            techQueryDTO.setCompanyId(user.getCompanyId());
+        PageModel<Tech> page = this.techService.queryTechPage(techQueryDTO);
 //        List<Map<String,Object>> statisMapList = this.companyService.queryStatisMapList(companyQueryDTO);
 //        Map<String,Object> statisMap = null;
 //        if(statisMapList != null && statisMapList.size() > 0){
@@ -78,14 +66,14 @@ public class CompanyController {
 //        }
         model.addAttribute("page", page);
 //        model.addAttribute("statisMap", statisMap);
-        model.addAttribute("companyQueryDTO", companyQueryDTO);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_COMPANY_LIST);
+        model.addAttribute("techQueryDTO", techQueryDTO);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
 
-        return "/company/list";
+        return "/tech/list";
     }
 
     /**
-     * 跳转到企业编辑页面
+     * 跳转到技术编辑页面
      * @param request
      * @param model
      * @return
@@ -93,38 +81,35 @@ public class CompanyController {
     @RequestMapping("/toEdit")
     public String dialogRoleEdit(HttpServletRequest request,Model model){
 
-        Company company = null;
+        Tech tech = null;
         User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
         if(StringUtils.isNotBlank(user.getCompanyId()))
-            company = companyService.find(user.getCompanyId());
+            tech = techService.find(user.getCompanyId());
 
-        model.addAttribute("company",company);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_COMPANY_LIST);
-        return "company/edit";
+        model.addAttribute("tech",tech);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        return "tech/edit";
     }
 
     /**
-     * 保存企业
+     * 保存技术
      * @param request
      * @return
      */
     @RequestMapping("/ajax/save")
     @ResponseBody
-    public AjaxResult ajaxSave(HttpServletRequest request,Company company){
+    public AjaxResult ajaxSave(HttpServletRequest request, Tech tech){
         AjaxResult ajaxResult = new AjaxResult();
         ajaxResult.setSuccess(false);
         try {
-            if (StringUtils.isNotBlank(company.getId())) {
-                Company temp = companyService.find(company.getId());
-                temp.setName(company.getName());
-                company = temp;
-                companyService.save(company);
+            if (StringUtils.isNotBlank(tech.getId())) {
+                Tech temp = techService.find(tech.getId());
+                temp.setName(tech.getName());
+                tech = temp;
+                techService.save(tech);
             }else {
-                company.setAuditFlag("0");
-                companyService.save(company);
-                User user = (User) request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
-                user.setCompanyId(company.getId());//插入company时，新增ID。
-                userService.save(user);
+                tech.setAuditFlag("0");
+                techService.save(tech);
             }
             ajaxResult.setSuccess(true);
         }catch (Exception e) {
@@ -134,7 +119,7 @@ public class CompanyController {
     }
 
     /**
-     * 详企业详情
+     * 技术详情
      * @param request
      * @param model
      * @return
@@ -142,16 +127,16 @@ public class CompanyController {
     @RequestMapping("/details")
     public String toAudit(HttpServletRequest request,Model model){
 
-        Company  company = companyService.find(request.getParameter("id"));
+        Tech  tech = techService.find(request.getParameter("id"));
 
-        model.addAttribute("company",company);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_COMPANY_LIST);
-        return "company/audit";
+        model.addAttribute("tech",tech);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        return "tech/audit";
     }
 
 
     /**
-     * 企业审核
+     * 技术审核
      * @param request
      * @return
      */
@@ -163,16 +148,11 @@ public class CompanyController {
 
         try {
 //            if(StringUtils.isNotBlank(request.getParameter("id")) && StringUtils.isNotBlank(request.getParameter("auditFlag"))){
-            Company company = companyService.find(request.getParameter("id"));
-            company.setAuditFlag(request.getParameter("auditFlag"));
+            Tech tech = techService.find(request.getParameter("id"));
+            tech.setAuditFlag(request.getParameter("auditFlag"));
             User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
-            company.setAuditorId(user.getId());
-            companyService.save(company);
-            Set<Role> set = new HashSet<Role>();
-            set.add(roleService.find("402880895f8effed015f8f1af3bb0000"));
-            User comAdmin = userService.findUserByCompanyId(company.getId());
-            comAdmin.setRoles(set);
-            userService.save(comAdmin);
+            tech.setAuditorId(user.getId());
+            techService.save(tech);
 //            }
             ajaxResult.setSuccess(true);
         } catch (Exception e) {
@@ -182,3 +162,4 @@ public class CompanyController {
         return ajaxResult;
     }
 }
+
