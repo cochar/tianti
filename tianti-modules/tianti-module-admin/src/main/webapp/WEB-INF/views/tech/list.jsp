@@ -166,7 +166,7 @@
 <script src="${ctx }/static/plugins/chosen_v1.6.2/chosen.jquery.js"></script>    
 <script type="text/javascript">
 	function myAdd(){
-        window.location.href="${ctx}/tech/techAdd";
+        window.location.href="${ctx}/tech/toEdit";
 	}
 	function myAudit(id){
 		var loadIdx = layer.load();
