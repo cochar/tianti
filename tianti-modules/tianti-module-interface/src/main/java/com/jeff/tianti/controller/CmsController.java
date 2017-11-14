@@ -40,7 +40,7 @@ public class CmsController {
 	/**
 	 * 获取栏目列表
 	 * @param request
-	 * @param model
+	 * @param response
 	 * @return
 	 */
 	@RequestMapping("/column/list")
@@ -80,7 +80,7 @@ public class CmsController {
 	/**
 	 * 获取文章列表
 	 * @param request
-	 * @param model
+	 * @param response
 	 * @return
 	 */
 	@RequestMapping("/article/list")
@@ -143,7 +143,7 @@ public class CmsController {
 	/**
 	 * 获取文章详情
 	 * @param request
-	 * @param model
+	 * @param response
 	 * @return
 	 */
 	@RequestMapping("/article/detail")
@@ -171,7 +171,7 @@ public class CmsController {
 	/**
 	 * 获取下一篇文章详情
 	 * @param request
-	 * @param model
+	 * @param response
 	 * @return
 	 */
 	@RequestMapping("/article/next")
@@ -218,7 +218,7 @@ public class CmsController {
 	/**
 	 * 获取上一篇文章详情
 	 * @param request
-	 * @param model
+	 * @param response
 	 * @return
 	 */
 	@RequestMapping("/article/pre")

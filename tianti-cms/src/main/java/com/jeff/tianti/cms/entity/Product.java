@@ -42,7 +42,7 @@ public class Product extends BaseEntity {
     private String introduction;
 
     //排序
-    private int sort;
+    private Integer sort;
 
     @Column(name = "name",length=64)
     public String getName() {
@@ -121,7 +121,7 @@ public class Product extends BaseEntity {
         return sort;
     }
 
-    public void setSort(int sort) {
+    public void setSort(Integer sort) {
         this.sort = sort;
     }
 }

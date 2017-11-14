@@ -26,7 +26,7 @@ public class Company extends BaseEntity {
     private String postStatus;
 
     //行业类型
-    private  String industryType;
+//    private  String industryType;
 
     //行业类型2
     private String viceIndustryTypes;
@@ -70,6 +70,19 @@ public class Company extends BaseEntity {
     //研发团队
     private String rndTeam;
 
+    //产业类型entity
+    private Dic industryType;
+
+    @ManyToOne
+    @JoinColumn(name = "industry_type")
+    public Dic getIndustryType() {
+        return industryType;
+    }
+
+    public void setIndustryType(Dic industryType) {
+        this.industryType = industryType;
+    }
+
     @Column(name = "name",length=64)
     public String getName() {
         return name;
@@ -93,14 +106,14 @@ public class Company extends BaseEntity {
         this.postStatus = postStatus;
     }
 
-    @Column(name = "industry_type",length=64)
-    public String getIndustryType() {
-        return industryType;
-    }
-
-    public void setIndustryType(String industryType) {
-        this.industryType = industryType;
-    }
+//    @Column(name = "industry_type",length=64)
+//    public String getIndustryType() {
+//        return industryType;
+//    }
+//
+//    public void setIndustryType(String industryType) {
+//        this.industryType = industryType;
+//    }
 
     @Column(name = "vice_industry_types",length=32)
     public String getViceIndustryTypes() {

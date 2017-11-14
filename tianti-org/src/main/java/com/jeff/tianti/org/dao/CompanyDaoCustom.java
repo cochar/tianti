@@ -19,6 +19,6 @@ public interface CompanyDaoCustom {
      */
     PageModel<Company> queryCompanyPage(CompanyQueryDTO companyQueryDTO);
 
-    public List<Company> findCompanyList(Map<String, Object> params);
+    public List<Company> queryCompanyList(CompanyQueryDTO companyQueryDTO);
 
 }

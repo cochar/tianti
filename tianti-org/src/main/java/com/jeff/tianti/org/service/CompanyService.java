@@ -45,4 +45,13 @@ public class CompanyService  extends CommonService<Company,String> {
         return this.companyDao.queryCompanyPage(companyQueryDTO);
     }
 
+    /**
+     * 查询企业列表信息
+     * @param companyQueryDTO
+     * @return
+     */
+    public List<Company> queryCompanyList(CompanyQueryDTO companyQueryDTO){
+        return this.companyDao.queryCompanyList(companyQueryDTO);
+    }
+
 }
