@@ -99,7 +99,7 @@ public class ProductController {
      */
     @RequestMapping("/ajax/save")
     @ResponseBody
-    public AjaxResult ajaxSave(HttpServletRequest request, Product product,String id){
+    public AjaxResult ajaxSave(HttpServletRequest request, Product product){
         AjaxResult ajaxResult = new AjaxResult();
         ajaxResult.setSuccess(false);
         try {
