@@ -96,7 +96,7 @@
 
 			</div>
 		</form>
-		<script id="container" name="content" type="text/plain"> liukexin</script>
+
 	</div>
 </div>
 <script src="${ctx }/static/plugins/chosen_v1.6.2/chosen.jquery.js"></script>
