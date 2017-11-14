@@ -7,6 +7,14 @@
 	<title>${menu_name } - ${title }</title>
 </head>
 <link href="${ctx }/static/plugins/chosen_v1.6.2/chosen.css" rel="stylesheet" />
+<!-- 配置文件 -->
+<script type="text/javascript" src="${ctx }/ueditor/editor_config.js"></script>
+<!-- 编辑器源码文件 -->
+
+<script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/ueditor.all.min.js"> </script>
+<script type="text/javascript" charset="utf-8" src="${ctx }/ueditor/lang/zh-cn/zh-cn.js"></script>
+<!-- 实例化编辑器 -->
+
 <body <%@ include file="../common/skin.jsp" %>>
 <%@ include file="../common/head.jsp" %>
 <%@ include file="../common/menu.jsp" %>
@@ -72,9 +80,10 @@
 						</tr>
 						<tr>
 							<td>排序:</td>
-							<td><input placeholder="排序" type="text" name="sort" id="sort"/></td>
+							<td><input placeholder="排序" type="text" name="sort" id="sort" value="0"/></td>
 						</tr>
 					</table>
+
 					<div class="l_p_btn">
 						<div class="J_toolsBar">
 							<div class="t_buttonGroup">
@@ -87,6 +96,7 @@
 
 			</div>
 		</form>
+		<script id="container" name="content" type="text/plain"> liukexin</script>
 	</div>
 </div>
 <script src="${ctx }/static/plugins/chosen_v1.6.2/chosen.jquery.js"></script>
@@ -101,12 +111,14 @@
     function mySubmit(){
 
         var productName = $.trim($('#name').val());
+        var sort = $.trim($('#sort').val());
 
 
         if(!productName){
             layer.alert('请输入产品名！');
             return;
         }
+
 
 
         layer.confirm("是否确定保存？", function(index){
@@ -133,7 +145,8 @@
                     if(result.success){
 //                        layer.alert('保存成功');
                         layer.alert('保存成功', function(){
-                            window.location.reload();//保存成功之后往哪跳？跳到列表吧
+                            //window.location.reload();//保存成功之后往哪跳？跳到列表吧
+                            window.location.href="${ctx}/product/list";
                         });
                     }else{
                         layer.alert('保存失败');
@@ -145,6 +158,17 @@
     function myReset(){
         $('#queryForm').reset();
     }
+   $(function(){
+       var ue = UE.getEditor( 'container', {
+
+
+
+           initialFrameWidth: 690,
+
+           initialFrameHeight:483
+
+       });
+   });
 
 
 

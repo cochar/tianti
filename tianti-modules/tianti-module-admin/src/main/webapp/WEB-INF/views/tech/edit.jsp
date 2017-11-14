@@ -56,7 +56,7 @@
                         </tr>
                         <tr>
                             <td>排序:</td>
-                            <td><input placeholder="排序" type="text" name="sort" id="sort"/></td>
+                            <td><input placeholder="排序" type="text" name="sort" id="sort" value="0"/></td>
                         </tr>
                     </table>
                     <div class="l_p_btn">
@@ -82,6 +82,11 @@
         $(".t_1 td span").css("color","red");
     });
     function mySubmit(id){
+        var productName = $.trim($('#name').val());
+        if(!productName){
+            layer.alert('请输入技术名称！');
+            return;
+        }
 
         layer.confirm("是否确定保存？", function(index){
             layer.close(index);
@@ -104,7 +109,8 @@
                     if(result.success){
 //                        layer.alert('保存成功');
                         layer.alert('保存成功', function(){
-                            window.location.reload();//保存成功之后往哪跳？
+                            //window.location.reload();//保存成功之后往哪跳？
+                            window.location.href="${ctx}/tech/list";
                         });
                     }else{
                         layer.alert('保存失败');
