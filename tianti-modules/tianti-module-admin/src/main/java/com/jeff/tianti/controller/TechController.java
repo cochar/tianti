@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
  * @author MissC
  */
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/tech")
 public class TechController {
 
     @Autowired
@@ -89,6 +89,17 @@ public class TechController {
         model.addAttribute("tech",tech);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
         return "tech/edit";
+    }
+
+    /**
+     * 新增技术
+     * @param request
+     * @param model
+     * @return
+     */
+    @RequestMapping("/techAdd")
+    public String techAdd(HttpServletRequest request,Model model){
+        return "tech/tech_add";
     }
 
     /**

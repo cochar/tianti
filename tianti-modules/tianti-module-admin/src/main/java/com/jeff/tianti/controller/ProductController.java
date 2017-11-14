@@ -5,11 +5,7 @@ import com.jeff.tianti.cms.entity.Product;
 import com.jeff.tianti.cms.service.ProductService;
 import com.jeff.tianti.common.dto.AjaxResult;
 import com.jeff.tianti.common.entity.PageModel;
-import com.jeff.tianti.org.dto.CompanyQueryDTO;
-import com.jeff.tianti.org.entity.Company;
-import com.jeff.tianti.org.entity.Role;
 import com.jeff.tianti.org.entity.User;
-import com.jeff.tianti.org.service.CompanyService;
 import com.jeff.tianti.util.Constants;
 import com.jeff.tianti.util.WebHelper;
 import org.apache.commons.lang3.StringUtils;
@@ -20,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * 产品Controller
@@ -74,6 +68,10 @@ public class ProductController {
 
         return "/product/list";
     }
+    @RequestMapping("/add")
+    public String add(HttpServletRequest request, Model model){
+        return "/product/addProduct";
+    }
 
     /**
      * 跳转到产品编辑页面
@@ -101,7 +99,7 @@ public class ProductController {
      */
     @RequestMapping("/ajax/save")
     @ResponseBody
-    public AjaxResult ajaxSave(HttpServletRequest request, Product product){
+    public AjaxResult ajaxSave(HttpServletRequest request, Product product,String id){
         AjaxResult ajaxResult = new AjaxResult();
         ajaxResult.setSuccess(false);
         try {

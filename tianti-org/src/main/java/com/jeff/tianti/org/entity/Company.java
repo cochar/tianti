@@ -192,7 +192,7 @@ public class Company extends BaseEntity {
         this.development = development;
     }
 
-    @Column(name = "name",length=64)
+    @Column(name = "business_card",length=64)
     public String getBusinessCard() {
         return businessCard;
     }
