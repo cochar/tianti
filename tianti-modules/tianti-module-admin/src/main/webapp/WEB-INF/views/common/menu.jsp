@@ -8,16 +8,8 @@
             </a> --%>
             <span style="color: #fff;font-size: 21px;">后台管理系统</span>
         </div>
-        <div class="n_user">
-            <div class="u_left">
-                <img src="${ctx }/static/images/default_face.jpg" />
-            </div>
-            <div class="u_right">
-                <div class="r_name">
-                	<span>${sessionScope.session_login_user.realName }</span>
-                </div>
-                <div class="r_logout"><a href="${ctx }/login_out">[退出]</a></div>
-            </div>
+        <div style="width: 1px;height: 2px;">
+
         </div>
         
         <div class="n_list" id="menu">

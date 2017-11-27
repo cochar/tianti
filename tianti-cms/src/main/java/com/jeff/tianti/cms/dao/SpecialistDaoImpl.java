@@ -23,7 +23,7 @@ public class SpecialistDaoImpl extends CustomBaseSqlDaoImpl implements Specialis
          StringBuilder hql = new StringBuilder();
          hql.append("select t from Specialist t where 1=1 ");
          if(StringUtils.isNotBlank(specialistQueryDTO.getCompanyId())) {
-             hql.append("and t.company.id =: companyId ");
+             hql.append("and t.company.id = :companyId ");
              map.put("companyId",specialistQueryDTO.getCompanyId());
          }
          return this.queryForPageWithParams(hql.toString(),map,specialistQueryDTO.getCurrentPage(),specialistQueryDTO.getPageSize());
@@ -34,7 +34,7 @@ public class SpecialistDaoImpl extends CustomBaseSqlDaoImpl implements Specialis
          StringBuilder hql = new StringBuilder();
          hql.append("select t from Specialist t where 1=1 ");
         if(StringUtils.isNotBlank(specialistQueryDTO.getCompanyId())) {
-            hql.append("and t.company.id =: companyId ");
+            hql.append("and t.company.id = :companyId ");
             map.put("companyId",specialistQueryDTO.getCompanyId());
         }
          return this.queryByMapParams(hql.toString(),map);

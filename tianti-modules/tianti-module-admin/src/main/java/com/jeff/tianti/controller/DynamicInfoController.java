@@ -127,7 +127,7 @@ public class DynamicInfoController {
 
         model.addAttribute("dynamicInfo",dynamicInfo);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "dynamicInfo/details";
+        return "dynamicInfo/look";
     }
 
 

@@ -128,7 +128,7 @@ public class SpecialistController {
 
         model.addAttribute("specialist",specialist);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "specialist/details";
+        return "specialist/look";
     }
 
 

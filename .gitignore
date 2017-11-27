@@ -23,5 +23,6 @@ tianti-org/target/
 tianti-modules/tianti-module-admin/target/
 tianti-modules/tianti-module-interface/target/
 tianti-modules/tianti-module-gateway/target/
+!/tianti-modules/tianti-module-admin/src/main/webapp/WEB-INF/views/product/edit.jsp
 /tianti-modules/tianti-module-admin/src/main/resources/application.development.properties
 /tianti-modules/tianti-module-interface/src/main/resources/application.development.properties

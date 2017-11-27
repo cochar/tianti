@@ -22,7 +22,7 @@ public class EquipmentDaoImpl extends CustomBaseSqlDaoImpl implements EquipmentD
          StringBuilder hql = new StringBuilder();
          hql.append("select t from Equipment t where 1=1 ");
         if(StringUtils.isNotBlank(equipmentQueryDTO.getCompanyId())) {
-            hql.append("and t.company.id =: companyId ");
+            hql.append("and t.company.id = :companyId ");
             map.put("companyId",equipmentQueryDTO.getCompanyId());
         }
          return this.queryForPageWithParams(hql.toString(),map,equipmentQueryDTO.getCurrentPage(),equipmentQueryDTO.getPageSize());
@@ -33,7 +33,7 @@ public class EquipmentDaoImpl extends CustomBaseSqlDaoImpl implements EquipmentD
          StringBuilder hql = new StringBuilder();
          hql.append("select t from Equipment t where 1=1 ");
         if(StringUtils.isNotBlank(equipmentQueryDTO.getCompanyId())) {
-            hql.append("and t.company.id =: companyId ");
+            hql.append("and t.company.id = :companyId ");
             map.put("companyId",equipmentQueryDTO.getCompanyId());
         }
          return this.queryByMapParams(hql.toString(),map);

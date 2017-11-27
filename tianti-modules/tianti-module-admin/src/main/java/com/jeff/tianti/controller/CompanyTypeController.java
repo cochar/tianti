@@ -127,7 +127,7 @@ public class CompanyTypeController {
 
         model.addAttribute("companyType",companyType);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "companyType/details";
+        return "companyType/look";
     }
 
 

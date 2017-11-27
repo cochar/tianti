@@ -127,7 +127,7 @@ public class EquipmenttController {
 
         model.addAttribute("equipment",equipment);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "equipment/details";
+        return "equipment/look";
     }
 
 

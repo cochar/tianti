@@ -22,7 +22,7 @@ public class DynamicInfoDaoImpl extends CustomBaseSqlDaoImpl implements DynamicI
          StringBuilder hql = new StringBuilder();
          hql.append("select t from DynamicInfo t where 1=1 ");
         if(StringUtils.isNotBlank(dynamicInfoQueryDTO.getCompanyId())) {
-            hql.append("and t.company.id =: companyId ");
+            hql.append("and t.company.id = :companyId ");
             map.put("companyId",dynamicInfoQueryDTO.getCompanyId());
         }
          return this.queryForPageWithParams(hql.toString(),map,dynamicInfoQueryDTO.getCurrentPage(),dynamicInfoQueryDTO.getPageSize());
@@ -33,7 +33,7 @@ public class DynamicInfoDaoImpl extends CustomBaseSqlDaoImpl implements DynamicI
          StringBuilder hql = new StringBuilder();
          hql.append("select t from DynamicInfo t where 1=1 ");
         if(StringUtils.isNotBlank(dynamicInfoQueryDTO.getCompanyId())) {
-            hql.append("and t.company.id =: companyId ");
+            hql.append("and t.company.id = :companyId ");
             map.put("companyId",dynamicInfoQueryDTO.getCompanyId());
         }
          return this.queryByMapParams(hql.toString(),map);
