@@ -1,11 +1,8 @@
 package com.jeff.tianti.controller;
 
-import com.jeff.tianti.cms.dto.ProductQueryDTO;
-import com.jeff.tianti.cms.dto.TechQueryDTO;
-import com.jeff.tianti.cms.entity.Product;
-import com.jeff.tianti.cms.entity.Tech;
-import com.jeff.tianti.cms.service.ProductService;
-import com.jeff.tianti.cms.service.TechService;
+import com.jeff.tianti.cms.dto.DynamicInfoQueryDTO;
+import com.jeff.tianti.cms.entity.DynamicInfo;
+import com.jeff.tianti.cms.service.DynamicInfoService;
 import com.jeff.tianti.common.dto.AjaxResult;
 import com.jeff.tianti.common.entity.PageModel;
 import com.jeff.tianti.org.entity.User;
@@ -21,18 +18,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 技术Controller
+ * 动态信息Controller
  * @author MissC
  */
 @Controller
-@RequestMapping("/tech")
-public class TechController {
+@RequestMapping("/dynamicInfo")
+public class DynamicInfoController {
 
     @Autowired
-    private TechService techService;
+    private DynamicInfoService dynamicInfoService;
 
     /**
-     * 获取技术列表
+     * 获取动态信息列表
      * @param request
      * @param model
      * @return
@@ -51,14 +48,14 @@ public class TechController {
             pageSize = Integer.parseInt(pageSizeStr);
         }
 
-        TechQueryDTO techQueryDTO= new TechQueryDTO();
+        DynamicInfoQueryDTO dynamicInfoQueryDTO= new DynamicInfoQueryDTO();
 
-        techQueryDTO.setCurrentPage(currentPage);
-        techQueryDTO.setPageSize(pageSize);
+        dynamicInfoQueryDTO.setCurrentPage(currentPage);
+        dynamicInfoQueryDTO.setPageSize(pageSize);
 
         if(StringUtils.isNoneEmpty(user.getCompanyId()))
-            techQueryDTO.setCompanyId(user.getCompanyId());
-        PageModel<Tech> page = this.techService.queryTechPage(techQueryDTO);
+            dynamicInfoQueryDTO.setCompanyId(user.getCompanyId());
+        PageModel<DynamicInfo> page = this.dynamicInfoService.queryDynamicInfoPage(dynamicInfoQueryDTO);
 //        List<Map<String,Object>> statisMapList = this.companyService.queryStatisMapList(companyQueryDTO);
 //        Map<String,Object> statisMap = null;
 //        if(statisMapList != null && statisMapList.size() > 0){
@@ -66,61 +63,49 @@ public class TechController {
 //        }
         model.addAttribute("page", page);
 //        model.addAttribute("statisMap", statisMap);
-        model.addAttribute("techQueryDTO", techQueryDTO);
+        model.addAttribute("dynamicInfoQueryDTO", dynamicInfoQueryDTO);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
 
-        return "/tech/list";
+        return "/dynamicInfo/list";
     }
 
     /**
-     * 跳转到技术编辑页面
+     * 跳转到动态信息编辑页面
      * @param request
      * @param model
      * @return
      */
     @RequestMapping("/toEdit")
-    public String dialogRoleEdit(HttpServletRequest request,Model model,String id){
+    public String dialogRoleEdit(HttpServletRequest request,Model model, String id) {
 
-        Tech tech = null;
-//        User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
-        if(StringUtils.isNotBlank(id))
-            tech = techService.find(id);
+        DynamicInfo dynamicInfo = null;
+//        User user = (User) request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
+        if (StringUtils.isNotBlank(id))
+            dynamicInfo = dynamicInfoService.find(id);
 
-        model.addAttribute("tech",tech);
+        model.addAttribute("dynamicInfo", dynamicInfo);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "tech/edit";
+        return "dynamicInfo/edit";
     }
 
     /**
-     * 新增技术
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping("/techAdd")
-    public String techAdd(HttpServletRequest request,Model model){
-        return "tech/tech_add";
-    }
-
-    /**
-     * 保存技术
+     * 保存动态信息
      * @param request
      * @return
      */
     @RequestMapping("/ajax/save")
     @ResponseBody
-    public AjaxResult ajaxSave(HttpServletRequest request, Tech tech){
+    public AjaxResult ajaxSave(HttpServletRequest request, DynamicInfo dynamicInfo){
         AjaxResult ajaxResult = new AjaxResult();
         ajaxResult.setSuccess(false);
         try {
-            if (StringUtils.isNotBlank(tech.getId())) {
-                Tech temp = techService.find(tech.getId());
-                temp.setName(tech.getName());
-                tech = temp;
-                techService.save(tech);
+            if (StringUtils.isNotBlank(dynamicInfo.getId())) {
+                DynamicInfo temp = dynamicInfoService.find(dynamicInfo.getId());
+                temp.setName(dynamicInfo.getName());
+                dynamicInfo = temp;
+                dynamicInfoService.save(dynamicInfo);
             }else {
-                tech.setAuditFlag("0");
-                techService.save(tech);
+                dynamicInfoService.save(dynamicInfo);
             }
             ajaxResult.setSuccess(true);
         }catch (Exception e) {
@@ -130,7 +115,7 @@ public class TechController {
     }
 
     /**
-     * 技术详情
+     * 动态信息详情
      * @param request
      * @param model
      * @return
@@ -138,20 +123,20 @@ public class TechController {
     @RequestMapping("/details")
     public String fetch(HttpServletRequest request,Model model){
 
-        Tech  tech = techService.find(request.getParameter("id"));
+        DynamicInfo  dynamicInfo = dynamicInfoService.find(request.getParameter("id"));
 
-        model.addAttribute("tech",tech);
+        model.addAttribute("dynamicInfo",dynamicInfo);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "tech/audit";
+        return "dynamicInfo/details";
     }
 
 
     /**
-     * 技术审核
+     * 动态信息审核
      * @param request
      * @return
      */
-    @RequestMapping("/ajax/audit")
+    /*@RequestMapping("/ajax/audit")
     @ResponseBody
     public AjaxResult ajaxAudit(HttpServletRequest request){
         AjaxResult ajaxResult = new AjaxResult();
@@ -159,11 +144,11 @@ public class TechController {
 
         try {
 //            if(StringUtils.isNotBlank(request.getParameter("id")) && StringUtils.isNotBlank(request.getParameter("auditFlag"))){
-            Tech tech = techService.find(request.getParameter("id"));
-            tech.setAuditFlag(request.getParameter("auditFlag"));
+            DynamicInfo dynamicInfo = dynamicInfoService.find(request.getParameter("id"));
+            dynamicInfo.setAuditFlag(request.getParameter("auditFlag"));
             User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
-            tech.setAuditorId(user.getId());
-            techService.save(tech);
+            dynamicInfo.setAuditorId(user.getId());
+            dynamicInfoService.save(dynamicInfo);
 //            }
             ajaxResult.setSuccess(true);
         } catch (Exception e) {
@@ -172,5 +157,6 @@ public class TechController {
 
         return ajaxResult;
     }
+*/
 }
 

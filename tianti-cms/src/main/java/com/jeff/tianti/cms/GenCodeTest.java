@@ -17,7 +17,7 @@ public class GenCodeTest {
 		//Demo为Entity类（放上自己新增的实体类即可）
 		GenCodeTest.autoGenAllCode(DynamicInfo.class,s,writer);
 		GenCodeTest.autoGenAllCode(Equipment.class,s,writer);
-		GenCodeTest.autoGenAllCode(Specailist.class,s,writer);
+		GenCodeTest.autoGenAllCode(Specialist.class,s,writer);
 		GenCodeTest.autoGenAllCode(CompanyType.class,s,writer);
 	}
 	

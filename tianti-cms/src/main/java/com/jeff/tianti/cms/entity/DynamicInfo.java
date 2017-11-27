@@ -1,10 +1,9 @@
 package com.jeff.tianti.cms.entity;
 
 import com.jeff.tianti.common.entity.BaseEntity;
+import com.jeff.tianti.org.entity.Company;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * 技术
@@ -27,7 +26,10 @@ public class DynamicInfo extends BaseEntity {
     private String introduction;
 
     //排序
-    private int orderNo;
+    private Integer orderNo;
+
+    //公司
+    private Company company;
 
     @Column(name = "name",length=64)
     public String getName() {
@@ -63,5 +65,15 @@ public class DynamicInfo extends BaseEntity {
 
     public void setOrderNo(Integer orderNo) {
         this.orderNo = orderNo;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "company_id")
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

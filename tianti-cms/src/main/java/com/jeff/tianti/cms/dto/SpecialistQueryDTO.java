@@ -4,10 +4,10 @@ import com.jeff.tianti.common.dto.CommonQueryDTO;
 
 /**
  * @author missC
- * @desc EquipmentQueryDTO 
+ * @desc SpecialistQueryDTO
  * @date 2017-11-27
  */
-public class EquipmentQueryDTO extends CommonQueryDTO{
+public class SpecialistQueryDTO extends CommonQueryDTO{
 
     //公司Id
     private String companyId;

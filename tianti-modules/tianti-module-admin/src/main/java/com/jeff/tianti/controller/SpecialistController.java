@@ -1,11 +1,9 @@
 package com.jeff.tianti.controller;
 
-import com.jeff.tianti.cms.dto.ProductQueryDTO;
-import com.jeff.tianti.cms.dto.TechQueryDTO;
-import com.jeff.tianti.cms.entity.Product;
-import com.jeff.tianti.cms.entity.Tech;
-import com.jeff.tianti.cms.service.ProductService;
-import com.jeff.tianti.cms.service.TechService;
+import com.jeff.tianti.cms.dto.SpecialistQueryDTO;
+import com.jeff.tianti.cms.entity.Specialist;
+import com.jeff.tianti.cms.service.SpecialistService;
+import com.jeff.tianti.cms.service.SpecialistService;
 import com.jeff.tianti.common.dto.AjaxResult;
 import com.jeff.tianti.common.entity.PageModel;
 import com.jeff.tianti.org.entity.User;
@@ -21,18 +19,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 技术Controller
+ * 专家Controller
  * @author MissC
  */
 @Controller
-@RequestMapping("/tech")
-public class TechController {
+@RequestMapping("/specialist")
+public class SpecialistController {
 
     @Autowired
-    private TechService techService;
+    private SpecialistService specialistService;
 
     /**
-     * 获取技术列表
+     * 获取专家列表
      * @param request
      * @param model
      * @return
@@ -51,14 +49,14 @@ public class TechController {
             pageSize = Integer.parseInt(pageSizeStr);
         }
 
-        TechQueryDTO techQueryDTO= new TechQueryDTO();
+        SpecialistQueryDTO specialistQueryDTO= new SpecialistQueryDTO();
 
-        techQueryDTO.setCurrentPage(currentPage);
-        techQueryDTO.setPageSize(pageSize);
+        specialistQueryDTO.setCurrentPage(currentPage);
+        specialistQueryDTO.setPageSize(pageSize);
 
         if(StringUtils.isNoneEmpty(user.getCompanyId()))
-            techQueryDTO.setCompanyId(user.getCompanyId());
-        PageModel<Tech> page = this.techService.queryTechPage(techQueryDTO);
+            specialistQueryDTO.setCompanyId(user.getCompanyId());
+        PageModel<Specialist> page = this.specialistService.querySpecialistPage(specialistQueryDTO);
 //        List<Map<String,Object>> statisMapList = this.companyService.queryStatisMapList(companyQueryDTO);
 //        Map<String,Object> statisMap = null;
 //        if(statisMapList != null && statisMapList.size() > 0){
@@ -66,61 +64,49 @@ public class TechController {
 //        }
         model.addAttribute("page", page);
 //        model.addAttribute("statisMap", statisMap);
-        model.addAttribute("techQueryDTO", techQueryDTO);
+        model.addAttribute("specialistQueryDTO", specialistQueryDTO);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
 
-        return "/tech/list";
+        return "/specialist/list";
     }
 
     /**
-     * 跳转到技术编辑页面
+     * 跳转到专家编辑页面
      * @param request
      * @param model
      * @return
      */
     @RequestMapping("/toEdit")
-    public String dialogRoleEdit(HttpServletRequest request,Model model,String id){
+    public String dialogRoleEdit(HttpServletRequest request,Model model, String id) {
 
-        Tech tech = null;
-//        User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
-        if(StringUtils.isNotBlank(id))
-            tech = techService.find(id);
+        Specialist specialist = null;
+//        User user = (User) request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
+        if (StringUtils.isNotBlank(id))
+            specialist = specialistService.find(id);
 
-        model.addAttribute("tech",tech);
+        model.addAttribute("specialist", specialist);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "tech/edit";
+        return "specialist/edit";
     }
 
     /**
-     * 新增技术
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping("/techAdd")
-    public String techAdd(HttpServletRequest request,Model model){
-        return "tech/tech_add";
-    }
-
-    /**
-     * 保存技术
+     * 保存专家
      * @param request
      * @return
      */
     @RequestMapping("/ajax/save")
     @ResponseBody
-    public AjaxResult ajaxSave(HttpServletRequest request, Tech tech){
+    public AjaxResult ajaxSave(HttpServletRequest request, Specialist specialist){
         AjaxResult ajaxResult = new AjaxResult();
         ajaxResult.setSuccess(false);
         try {
-            if (StringUtils.isNotBlank(tech.getId())) {
-                Tech temp = techService.find(tech.getId());
-                temp.setName(tech.getName());
-                tech = temp;
-                techService.save(tech);
+            if (StringUtils.isNotBlank(specialist.getId())) {
+                Specialist temp = specialistService.find(specialist.getId());
+                temp.setName(specialist.getName());
+                specialist = temp;
+                specialistService.save(specialist);
             }else {
-                tech.setAuditFlag("0");
-                techService.save(tech);
+                specialistService.save(specialist);
             }
             ajaxResult.setSuccess(true);
         }catch (Exception e) {
@@ -130,7 +116,7 @@ public class TechController {
     }
 
     /**
-     * 技术详情
+     * 专家详情
      * @param request
      * @param model
      * @return
@@ -138,20 +124,20 @@ public class TechController {
     @RequestMapping("/details")
     public String fetch(HttpServletRequest request,Model model){
 
-        Tech  tech = techService.find(request.getParameter("id"));
+        Specialist  specialist = specialistService.find(request.getParameter("id"));
 
-        model.addAttribute("tech",tech);
+        model.addAttribute("specialist",specialist);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "tech/audit";
+        return "specialist/details";
     }
 
 
     /**
-     * 技术审核
+     * 专家审核
      * @param request
      * @return
      */
-    @RequestMapping("/ajax/audit")
+    /*@RequestMapping("/ajax/audit")
     @ResponseBody
     public AjaxResult ajaxAudit(HttpServletRequest request){
         AjaxResult ajaxResult = new AjaxResult();
@@ -159,11 +145,11 @@ public class TechController {
 
         try {
 //            if(StringUtils.isNotBlank(request.getParameter("id")) && StringUtils.isNotBlank(request.getParameter("auditFlag"))){
-            Tech tech = techService.find(request.getParameter("id"));
-            tech.setAuditFlag(request.getParameter("auditFlag"));
+            Specialist specialist = specialistService.find(request.getParameter("id"));
+            specialist.setAuditFlag(request.getParameter("auditFlag"));
             User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
-            tech.setAuditorId(user.getId());
-            techService.save(tech);
+            specialist.setAuditorId(user.getId());
+            specialistService.save(specialist);
 //            }
             ajaxResult.setSuccess(true);
         } catch (Exception e) {
@@ -172,5 +158,6 @@ public class TechController {
 
         return ajaxResult;
     }
+*/
 }
 

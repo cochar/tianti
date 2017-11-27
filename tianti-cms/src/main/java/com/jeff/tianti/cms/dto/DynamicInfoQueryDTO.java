@@ -9,4 +9,14 @@ import com.jeff.tianti.common.dto.CommonQueryDTO;
  */
 public class DynamicInfoQueryDTO extends CommonQueryDTO{
 
+    //公司Id
+    private String companyId;
+
+    public String getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(String companyId) {
+        this.companyId = companyId;
+    }
 }

@@ -1,11 +1,8 @@
 package com.jeff.tianti.controller;
 
-import com.jeff.tianti.cms.dto.ProductQueryDTO;
-import com.jeff.tianti.cms.dto.TechQueryDTO;
-import com.jeff.tianti.cms.entity.Product;
-import com.jeff.tianti.cms.entity.Tech;
-import com.jeff.tianti.cms.service.ProductService;
-import com.jeff.tianti.cms.service.TechService;
+import com.jeff.tianti.cms.dto.CompanyTypeQueryDTO;
+import com.jeff.tianti.cms.entity.CompanyType;
+import com.jeff.tianti.cms.service.CompanyTypeService;
 import com.jeff.tianti.common.dto.AjaxResult;
 import com.jeff.tianti.common.entity.PageModel;
 import com.jeff.tianti.org.entity.User;
@@ -21,18 +18,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * 技术Controller
+ * 公司维度Controller
  * @author MissC
  */
 @Controller
-@RequestMapping("/tech")
-public class TechController {
+@RequestMapping("/companyType")
+public class CompanyTypeController {
 
     @Autowired
-    private TechService techService;
+    private CompanyTypeService companyTypeService;
 
     /**
-     * 获取技术列表
+     * 获取公司维度列表
      * @param request
      * @param model
      * @return
@@ -51,14 +48,14 @@ public class TechController {
             pageSize = Integer.parseInt(pageSizeStr);
         }
 
-        TechQueryDTO techQueryDTO= new TechQueryDTO();
+        CompanyTypeQueryDTO companyTypeQueryDTO= new CompanyTypeQueryDTO();
 
-        techQueryDTO.setCurrentPage(currentPage);
-        techQueryDTO.setPageSize(pageSize);
+        companyTypeQueryDTO.setCurrentPage(currentPage);
+        companyTypeQueryDTO.setPageSize(pageSize);
 
-        if(StringUtils.isNoneEmpty(user.getCompanyId()))
-            techQueryDTO.setCompanyId(user.getCompanyId());
-        PageModel<Tech> page = this.techService.queryTechPage(techQueryDTO);
+//        if(StringUtils.isNoneEmpty(user.getCompanyId()))
+//            companyTypeQueryDTO.setCompanyId(user.getCompanyId());
+        PageModel<CompanyType> page = this.companyTypeService.queryCompanyTypePage(companyTypeQueryDTO);
 //        List<Map<String,Object>> statisMapList = this.companyService.queryStatisMapList(companyQueryDTO);
 //        Map<String,Object> statisMap = null;
 //        if(statisMapList != null && statisMapList.size() > 0){
@@ -66,61 +63,49 @@ public class TechController {
 //        }
         model.addAttribute("page", page);
 //        model.addAttribute("statisMap", statisMap);
-        model.addAttribute("techQueryDTO", techQueryDTO);
+        model.addAttribute("companyTypeQueryDTO", companyTypeQueryDTO);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
 
-        return "/tech/list";
+        return "/companyType/list";
     }
 
     /**
-     * 跳转到技术编辑页面
+     * 跳转到公司维度编辑页面
      * @param request
      * @param model
      * @return
      */
     @RequestMapping("/toEdit")
-    public String dialogRoleEdit(HttpServletRequest request,Model model,String id){
+    public String dialogRoleEdit(HttpServletRequest request,Model model, String id) {
 
-        Tech tech = null;
-//        User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
-        if(StringUtils.isNotBlank(id))
-            tech = techService.find(id);
+        CompanyType companyType = null;
+//        User user = (User) request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
+        if (StringUtils.isNotBlank(id))
+            companyType = companyTypeService.find(id);
 
-        model.addAttribute("tech",tech);
+        model.addAttribute("companyType", companyType);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "tech/edit";
+        return "companyType/edit";
     }
 
     /**
-     * 新增技术
-     * @param request
-     * @param model
-     * @return
-     */
-    @RequestMapping("/techAdd")
-    public String techAdd(HttpServletRequest request,Model model){
-        return "tech/tech_add";
-    }
-
-    /**
-     * 保存技术
+     * 保存公司维度
      * @param request
      * @return
      */
     @RequestMapping("/ajax/save")
     @ResponseBody
-    public AjaxResult ajaxSave(HttpServletRequest request, Tech tech){
+    public AjaxResult ajaxSave(HttpServletRequest request, CompanyType companyType){
         AjaxResult ajaxResult = new AjaxResult();
         ajaxResult.setSuccess(false);
         try {
-            if (StringUtils.isNotBlank(tech.getId())) {
-                Tech temp = techService.find(tech.getId());
-                temp.setName(tech.getName());
-                tech = temp;
-                techService.save(tech);
+            if (StringUtils.isNotBlank(companyType.getId())) {
+                CompanyType temp = companyTypeService.find(companyType.getId());
+                temp.setName(companyType.getName());
+                companyType = temp;
+                companyTypeService.save(companyType);
             }else {
-                tech.setAuditFlag("0");
-                techService.save(tech);
+                companyTypeService.save(companyType);
             }
             ajaxResult.setSuccess(true);
         }catch (Exception e) {
@@ -130,7 +115,7 @@ public class TechController {
     }
 
     /**
-     * 技术详情
+     * 公司维度详情
      * @param request
      * @param model
      * @return
@@ -138,20 +123,20 @@ public class TechController {
     @RequestMapping("/details")
     public String fetch(HttpServletRequest request,Model model){
 
-        Tech  tech = techService.find(request.getParameter("id"));
+        CompanyType  companyType = companyTypeService.find(request.getParameter("id"));
 
-        model.addAttribute("tech",tech);
+        model.addAttribute("companyType",companyType);
         model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
-        return "tech/audit";
+        return "companyType/details";
     }
 
 
     /**
-     * 技术审核
+     * 公司维度审核
      * @param request
      * @return
      */
-    @RequestMapping("/ajax/audit")
+    /*@RequestMapping("/ajax/audit")
     @ResponseBody
     public AjaxResult ajaxAudit(HttpServletRequest request){
         AjaxResult ajaxResult = new AjaxResult();
@@ -159,11 +144,11 @@ public class TechController {
 
         try {
 //            if(StringUtils.isNotBlank(request.getParameter("id")) && StringUtils.isNotBlank(request.getParameter("auditFlag"))){
-            Tech tech = techService.find(request.getParameter("id"));
-            tech.setAuditFlag(request.getParameter("auditFlag"));
+            CompanyType companyType = companyTypeService.find(request.getParameter("id"));
+            companyType.setAuditFlag(request.getParameter("auditFlag"));
             User user = (User)request.getSession().getAttribute(WebHelper.SESSION_LOGIN_USER);
-            tech.setAuditorId(user.getId());
-            techService.save(tech);
+            companyType.setAuditorId(user.getId());
+            companyTypeService.save(companyType);
 //            }
             ajaxResult.setSuccess(true);
         } catch (Exception e) {
@@ -172,5 +157,6 @@ public class TechController {
 
         return ajaxResult;
     }
+*/
 }
 
