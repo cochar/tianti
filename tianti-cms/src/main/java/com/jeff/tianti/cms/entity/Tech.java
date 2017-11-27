@@ -39,7 +39,7 @@ public class Tech extends BaseEntity {
     private String introduction;
 
     //排序
-    private Integer sort;
+    private Integer orderNo;
 
     @Column(name = "name",length=64)
     public String getName() {
@@ -104,12 +104,12 @@ public class Tech extends BaseEntity {
         this.introduction = introduction;
     }
 
-    @Column(name = "sort")
-    public int getSort() {
-        return sort;
+    @Column(name = "order_no")
+    public Integer getOrderNo() {
+        return orderNo;
     }
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setOrderNo(Integer orderNo) {
+        this.orderNo = orderNo;
     }
 }

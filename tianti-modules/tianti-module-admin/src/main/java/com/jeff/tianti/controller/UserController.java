@@ -13,7 +13,9 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeff.tianti.common.util.HttpRequestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -693,6 +695,48 @@ public class UserController {
 			}
 		}
 //		response.sendRedirect("XXX.jsp或者servlet");
+		return ajaxResult;
+	}
+
+	@RequestMapping("/ajax/emailVarify")
+	public AjaxResult emailVarify(String tel){
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setSuccess(false);
+		try {
+			//发送 POST 请求
+			String sr = HttpRequestUtils.sendPost("http://api.emailcar.net/mail/send", "apiUser=missC&apiKey=zxf54399&from=punkli@foxmail.com&to=dyy423@gmail.com&subject=test&fromName=test&html=content");
+			System.out.println(sr);
+			Map map = new HashMap<String,String>();
+			map = (Map)JSONObject.stringToValue(sr);
+			if("true".equals(map.get("result")))
+				ajaxResult.setSuccess(true);
+		}catch (Exception e){ e.printStackTrace(); }
+		return ajaxResult;
+	}
+
+	@RequestMapping("/ajax/emailPassword")
+	public AjaxResult emailPassword(String tel){
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setSuccess(false);
+		try {
+			//发送 POST 请求
+			String sr = HttpRequestUtils.sendPost("http://api.emailcar.net/mail/send", "apiUser=missC&apiKey=zxf54399&from=punkli@foxmail.com&to=dyy423@gmail.com&subject=test&fromName=test&html=content");
+			System.out.println(sr);
+			ajaxResult.setSuccess(true);
+		}catch (Exception e){ e.printStackTrace(); }
+		return ajaxResult;
+	}
+
+	@RequestMapping("/ajax/vCode")
+	public AjaxResult vCode(String tel){
+		AjaxResult ajaxResult = new AjaxResult();
+		ajaxResult.setSuccess(false);
+		try {
+			//发送 POST 请求
+			String sr = HttpRequestUtils.sendPost("http://api.emailcar.net/mail/send", "apiUser=missC&apiKey=zxf54399&from=punkli@foxmail.com&to=dyy423@gmail.com&subject=test&fromName=test&html=content");
+			System.out.println(sr);
+			ajaxResult.setSuccess(true);
+		}catch (Exception e){ e.printStackTrace(); }
 		return ajaxResult;
 	}
 

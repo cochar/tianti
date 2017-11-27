@@ -2,11 +2,10 @@ package com.jeff.tianti.cms;
 
 import java.io.IOException;
 
-import com.jeff.tianti.cms.entity.Article;
-import com.jeff.tianti.cms.entity.ColumnInfo;
-import com.jeff.tianti.cms.entity.Product;
-import com.jeff.tianti.cms.entity.Tech;
+import com.jeff.tianti.cms.entity.*;
 import com.jeff.tianti.common.util.GenCodeUtil;
+
+import javax.servlet.Registration;
 
 public class GenCodeTest {
 	
@@ -16,8 +15,10 @@ public class GenCodeTest {
 		//作者
 		String writer = "missC";
 		//Demo为Entity类（放上自己新增的实体类即可）
-		GenCodeTest.autoGenAllCode(Product.class,s,writer);
-		GenCodeTest.autoGenAllCode(Tech.class,s,writer);
+		GenCodeTest.autoGenAllCode(DynamicInfo.class,s,writer);
+		GenCodeTest.autoGenAllCode(Equipment.class,s,writer);
+		GenCodeTest.autoGenAllCode(Specailist.class,s,writer);
+		GenCodeTest.autoGenAllCode(CompanyType.class,s,writer);
 	}
 	
 	/**
