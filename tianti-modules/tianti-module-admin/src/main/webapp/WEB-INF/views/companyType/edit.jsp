@@ -22,7 +22,7 @@
 
 	<div class="mt20 plr20">
 		<button class="abtn red" onclick="javascript:history.back(-1);">返回上一级</button>
-		<form action="${ctx }/product/ajax/save" modelAttribute="equipment" id="queryForm" method="post">
+		<form action="${ctx }/companyType/ajax/save" modelAttribute="equipment" id="queryForm" method="post">
 			<div class="J_table mt20">
 				<div class="t_table">
 					<table>
@@ -45,7 +45,10 @@
 							<td>
 								<select name="groupId" id="groupId">
 									<option value="">---请选择---</option>
-									<option value="001">中国石油化工集团</option>
+									<option value="001"
+											<%--<c:if test="${companyType.groupId == rootColumnId }">selected="selected"</c:if>--%>
+									>中国石油化工集团
+									</option>
 								</select>
 							</td>
 						</tr>
@@ -60,14 +63,14 @@
 						<tr>
 							<td>企业分类简介:</td>
 							<td>
-								<textarea id="brief" name="brief">
+								<textarea id="brief" name="brief" value="${companyType.breif}">
 
 								</textarea>
 							</td>
 						</tr>
 						<tr>
 							<td>排序:</td>
-							<td><input placeholder="排序" type="text" name="sort" id="sort" value="0"/></td>
+							<td><input placeholder="排序" type="text" name="sort" id="sort" value="${companyType.orderNo}"/></td>
 						</tr>
 					</table>
 
@@ -99,12 +102,12 @@
     });
     function mySubmit(){
 
-        var productName = $.trim($('#name').val());
+        var cmpanyTypeName = $.trim($('#name').val());
         var sort = $.trim($('#sort').val());
 
 
-        if(!productName){
-            layer.alert('请输入名称！');
+        if(!cmpanyTypeName){
+            layer.alert('请输入分类名称！');
             return;
         }
 
@@ -120,7 +123,7 @@
 //			var name = $('#name').val();
 //			alert(name);
             $.ajax({
-                url : '${ctx}/product/ajax/save',//换成保存方法的地址
+                url : '${ctx}/companyType/ajax/save',//换成保存方法的地址
                 type : 'post',
                 data:$("#queryForm").serialize(), //序列化或者按照下边一个一个写JSON.stringify()
 //                data : {
@@ -135,7 +138,7 @@
 //                        layer.alert('保存成功');
                         layer.alert('保存成功', function(){
                             //window.location.reload();//保存成功之后往哪跳？跳到列表吧
-                            window.location.href="${ctx}/product/list";
+                            window.location.href="${ctx}/companyType/list";
                         });
                     }else{
                         layer.alert('保存失败');

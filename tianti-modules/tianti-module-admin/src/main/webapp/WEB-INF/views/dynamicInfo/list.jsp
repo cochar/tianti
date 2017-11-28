@@ -16,7 +16,7 @@
 			<div class="J_toolsBar clearfix">
 				<div class="t_label">动态信息名称</div>
 				<div class="t_text ml10">
-					<input placeholder="" type="text" name="name" id="name" value="${special.name }"/>
+					<input placeholder="" type="text" name="name" id="name" value="${specialist.name }"/>
 				</div>
 				<div class="t_button mgl30">
 					<a class="abtn red" href="javascript:myQuery();">
@@ -81,7 +81,7 @@
 										</td>
 										<td>
 											<div class="t_text tc">
-													${c.companyId}
+													${c.company.name}
 											</div>
 										</td>
 										<td>

@@ -12,23 +12,23 @@
 				<table>
 					<tr>
 						<td>专家姓名:</td>
-						<td>${special.name}</td>
+						<td>${specialist.name}</td>
 					</tr>
 					<tr>
 						<td>所属企业:</td>
-						<td>${special.companyId}</td>
+						<td>${specialist.company.name}</td>
 					</tr>
 					<tr>
 						<td>专家简介:</td>
-						<td>${special.brief}</td>
+						<td>${specialist.brief}</td>
 					</tr>
 					<tr>
 						<td>商务合作:</td>
-						<td>${special.brief}</td>
+						<td>${specialist.brief}</td>
 					</tr>
 					<tr>
 						<td>专家详情:</td>
-						<td>${special.introduction}</td>
+						<td>${specialist.introduction}</td>
 					</tr>
 
 				</table>

@@ -29,6 +29,9 @@ public class CompanyType extends BaseEntity {
     //排序
     private int orderNo;
 
+    //发布状态
+    private String postStatus;
+
     @Column(name = "name",length=64)
     public String getName() {
         return name;
@@ -63,5 +66,14 @@ public class CompanyType extends BaseEntity {
 
     public void setOrderNo(Integer orderNo) {
         this.orderNo = orderNo;
+    }
+
+    @Column(name = "post_status",length=1)
+    public String getPostStatus() {
+        return postStatus;
+    }
+
+    public void setPostStatus(String postStatus) {
+        this.postStatus = postStatus;
     }
 }

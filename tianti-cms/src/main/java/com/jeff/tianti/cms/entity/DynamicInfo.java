@@ -31,6 +31,9 @@ public class DynamicInfo extends BaseEntity {
     //公司
     private Company company;
 
+    //发布状态
+    private String postStatus;
+
     @Column(name = "name",length=64)
     public String getName() {
         return name;
@@ -75,5 +78,14 @@ public class DynamicInfo extends BaseEntity {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    @Column(name = "post_status",length=1)
+    public String getPostStatus() {
+        return postStatus;
+    }
+
+    public void setPostStatus(String postStatus) {
+        this.postStatus = postStatus;
     }
 }

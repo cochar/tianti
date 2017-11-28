@@ -22,7 +22,7 @@
 
 	<div class="mt20 plr20">
 		<button class="abtn red" onclick="javascript:history.back(-1);">返回上一级</button>
-		<form action="${ctx }/product/ajax/save" modelAttribute="product" id="queryForm" method="post">
+		<form action="${ctx }/specialist/ajax/save" modelAttribute="specialist" id="queryForm" method="post">
 			<div class="J_table mt20">
 				<div class="t_table">
 					<table>
@@ -42,7 +42,7 @@
 						</tr>
 						<tr>
 							<td><span>*</span>专家姓名:</td>
-							<td><input placeholder="专家姓名" type="text" name="name" id="name" value="${product.name}"/></td>
+							<td><input placeholder="专家姓名" type="text" name="name" id="name" value="${specialist.name}"/></td>
 						</tr>
 						<tr>
 							<td><span>*</span>所属企业:</td>
@@ -111,12 +111,12 @@
     });
     function mySubmit(){
 
-        var productName = $.trim($('#name').val());
+        var specialistName = $.trim($('#name').val());
         var sort = $.trim($('#sort').val());
 
 
-        if(!productName){
-            layer.alert('请输入产品名！');
+        if(!specialistName){
+            layer.alert('请输入专家名称！');
             return;
         }
 
@@ -132,7 +132,7 @@
 //			var name = $('#name').val();
 //			alert(name);
             $.ajax({
-                url : '${ctx}/product/ajax/save',//换成保存方法的地址
+                url : '${ctx}/specialist/ajax/save',//换成保存方法的地址
                 type : 'post',
                 data:$("#queryForm").serialize(), //序列化或者按照下边一个一个写JSON.stringify()
 //                data : {
@@ -147,7 +147,7 @@
 //                        layer.alert('保存成功');
                         layer.alert('保存成功', function(){
                             //window.location.reload();//保存成功之后往哪跳？跳到列表吧
-                            window.location.href="${ctx}/product/list";
+                            window.location.href="${ctx}/specialist/list";
                         });
                     }else{
                         layer.alert('保存失败');

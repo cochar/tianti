@@ -22,7 +22,7 @@
 
 	<div class="mt20 plr20">
 		<button class="abtn red" onclick="javascript:history.back(-1);">返回上一级</button>
-		<form action="${ctx }/product/ajax/save" modelAttribute="equipment" id="queryForm" method="post">
+		<form action="${ctx }/equipment/ajax/save" modelAttribute="equipment" id="queryForm" method="post">
 			<div class="J_table mt20">
 				<div class="t_table">
 					<table>
@@ -42,7 +42,7 @@
 						</tr>
 						<tr>
 							<td><span>*</span>设备名称:</td>
-							<td><input placeholder="设备名称" type="text" name="name" id="name" value="${product.name}"/></td>
+							<td><input placeholder="设备名称" type="text" name="name" id="name" value="${equipment.name}"/></td>
 						</tr>
 						<tr>
 							<td><span>*</span>所属企业:</td>
@@ -56,30 +56,30 @@
 						<tr>
 							<td>设备简介:</td>
 							<td>
-								<textare name="brief">
+								<textarea name="brief" value="${equipment.breif}">
 
-								</textare>
+								</textarea>
 							</td>
 						</tr>
 						<tr>
 							<td>商务合作:</td>
 							<td>
-								<textare name="cooperation">
+								<textarea name="cooperation" value="${equipment.cooperation}">
 
-								</textare>
+								</textarea>
 							</td>
 						</tr>
 						<tr>
 							<td>专家详情:</td>
 							<td>
-								<textare name="introduction">
+								<textarea name="introduction" value="${equipment.introduction}">
 
-								</textare>
+								</textarea>
 							</td>
 						</tr>
 						<tr>
 							<td>排序:</td>
-							<td><input placeholder="排序" type="text" name="sort" id="sort" value="0"/></td>
+							<td><input placeholder="排序" type="text" name="sort" id="sort" value="${equipment.orderNo}"/></td>
 						</tr>
 					</table>
 
@@ -111,12 +111,12 @@
     });
     function mySubmit(){
 
-        var productName = $.trim($('#name').val());
+        var equipmentName = $.trim($('#name').val());
         var sort = $.trim($('#sort').val());
 
 
-        if(!productName){
-            layer.alert('请输入产品名！');
+        if(!equipmentName){
+            layer.alert('请输入设备名称！');
             return;
         }
 
@@ -132,7 +132,7 @@
 //			var name = $('#name').val();
 //			alert(name);
             $.ajax({
-                url : '${ctx}/product/ajax/save',//换成保存方法的地址
+                url : '${ctx}/equipment/ajax/save',//换成保存方法的地址
                 type : 'post',
                 data:$("#queryForm").serialize(), //序列化或者按照下边一个一个写JSON.stringify()
 //                data : {
@@ -147,7 +147,7 @@
 //                        layer.alert('保存成功');
                         layer.alert('保存成功', function(){
                             //window.location.reload();//保存成功之后往哪跳？跳到列表吧
-                            window.location.href="${ctx}/product/list";
+                            window.location.href="${ctx}/equipment/list";
                         });
                     }else{
                         layer.alert('保存失败');

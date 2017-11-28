@@ -16,7 +16,7 @@
 					</tr>
 					<tr>
 						<td>所属企业:</td>
-						<td>${equipment.companyId}</td>
+						<td>${equipment.company.name}</td>
 					</tr>
 					<tr>
 						<td>设备简介:</td>
@@ -28,7 +28,7 @@
 					</tr>
 					<tr>
 						<td>设备详情:</td>
-						<td>${special.introduction}</td>
+						<td>${equipment.introduction}</td>
 					</tr>
 
 				</table>
