@@ -15,10 +15,10 @@ public class Constants {
 	public static final String MENU_COMPANY_LIST = "企业列表";
 	public static final String MENU_PRODUCT_LIST = "产品列表";
 	public static final String MENU_TECH_LIST = "技术列表";
-	public static final String MENU_SPECIAL_LIST = "专家列表";
-	public static final String MENU_EQUIPMENT_LIST = "设备列表";
-	public static final String MENU_DYNAMICINFO_LIST = "动态信息列表";
-	public static final String MENU_COMCPANYTYPE_LIST = "企业维度列表";
+	public static final String MENU_SPECIAL_LIST = "专家管理";
+	public static final String MENU_EQUIPMENT_LIST = "设备管理";
+	public static final String MENU_DYNAMICINFO_LIST = "动态信息管理";
+	public static final String MENU_COMCPANYTYPE_LIST = "维度管理";
 	
 	public static final String MENU_UPDATE_PWD = "修改密码";
 	public static final String MENU_UPDATE_SKIN = "换肤管理";
