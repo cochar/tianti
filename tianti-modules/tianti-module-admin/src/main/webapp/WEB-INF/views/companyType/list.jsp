@@ -14,9 +14,9 @@
 	<div class="mt20 plr20">
 		<form action="${ctx }/user/list" id="queryForm" method="post">
 			<div class="J_toolsBar clearfix">
-				<div class="t_label">专家姓名</div>
+				<div class="t_label">企业分类名称</div>
 				<div class="t_text ml10">
-					<input placeholder="" type="text" name="name" id="name" value="${specialist.name }"/>
+					<input placeholder="企业分类名称..." type="text" name="name" id="name" value="${specialist.name }"/>
 				</div>
 				<div class="t_button mgl30">
 					<a class="abtn red" href="javascript:myQuery();">
