@@ -19,6 +19,7 @@ public class Constants {
 	public static final String MENU_EQUIPMENT_LIST = "设备管理";
 	public static final String MENU_DYNAMICINFO_LIST = "动态信息管理";
 	public static final String MENU_COMCPANYTYPE_LIST = "维度管理";
+
 	
 	public static final String MENU_UPDATE_PWD = "修改密码";
 	public static final String MENU_UPDATE_SKIN = "换肤管理";
