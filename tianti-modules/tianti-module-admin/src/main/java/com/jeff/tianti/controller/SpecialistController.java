@@ -65,7 +65,7 @@ public class SpecialistController {
         model.addAttribute("page", page);
 //        model.addAttribute("statisMap", statisMap);
         model.addAttribute("specialistQueryDTO", specialistQueryDTO);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_SPECIAL_LIST);
 
         return "/specialist/list";
     }
@@ -85,7 +85,7 @@ public class SpecialistController {
             specialist = specialistService.find(id);
 
         model.addAttribute("specialist", specialist);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_SPECIAL_LIST);
         return "specialist/edit";
     }
 
@@ -127,7 +127,7 @@ public class SpecialistController {
         Specialist  specialist = specialistService.find(request.getParameter("id"));
 
         model.addAttribute("specialist",specialist);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_SPECIAL_LIST);
         return "specialist/look";
     }
 

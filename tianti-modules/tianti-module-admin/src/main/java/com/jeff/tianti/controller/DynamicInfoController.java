@@ -64,7 +64,7 @@ public class DynamicInfoController {
         model.addAttribute("page", page);
 //        model.addAttribute("statisMap", statisMap);
         model.addAttribute("dynamicInfoQueryDTO", dynamicInfoQueryDTO);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_DYNAMICINFO_LIST);
 
         return "/dynamicInfo/list";
     }
@@ -84,7 +84,7 @@ public class DynamicInfoController {
             dynamicInfo = dynamicInfoService.find(id);
 
         model.addAttribute("dynamicInfo", dynamicInfo);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_DYNAMICINFO_LIST);
         return "dynamicInfo/edit";
     }
 
@@ -126,7 +126,7 @@ public class DynamicInfoController {
         DynamicInfo  dynamicInfo = dynamicInfoService.find(request.getParameter("id"));
 
         model.addAttribute("dynamicInfo",dynamicInfo);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_DYNAMICINFO_LIST);
         return "dynamicInfo/look";
     }
 

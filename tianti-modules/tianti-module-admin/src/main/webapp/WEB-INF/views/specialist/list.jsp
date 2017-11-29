@@ -4,7 +4,7 @@
 <%@ include file="../common/common.jsp" %>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>${menu_name } - ${title }</title>
+<title>${ menu_name } - ${ title }</title>
 </head>
 <link href="${ctx }/static/plugins/chosen_v1.6.2/chosen.css" rel="stylesheet" />
 <body <%@ include file="../common/skin.jsp" %>>
@@ -16,7 +16,7 @@
 	        <div class="J_toolsBar clearfix">
 				<div class="t_label">专家姓名</div>
 				<div class="t_text ml10">
-                	<input placeholder="" type="text" name="name" id="name" value="${specialist.name }"/>
+                	<input placeholder="专家姓名..." type="text" name="name" id="name" value="${specialist.name }"/>
                 </div>
                 <div class="t_button mgl30">
                		<a class="abtn red" href="javascript:myQuery();">

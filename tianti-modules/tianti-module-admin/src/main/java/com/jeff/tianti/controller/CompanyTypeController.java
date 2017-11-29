@@ -64,7 +64,7 @@ public class CompanyTypeController {
         model.addAttribute("page", page);
 //        model.addAttribute("statisMap", statisMap);
         model.addAttribute("companyTypeQueryDTO", companyTypeQueryDTO);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_COMCPANYTYPE_LIST);
 
         return "/companyType/list";
     }
@@ -84,7 +84,7 @@ public class CompanyTypeController {
             companyType = companyTypeService.find(id);
 
         model.addAttribute("companyType", companyType);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_COMCPANYTYPE_LIST);
         return "companyType/edit";
     }
 
@@ -126,7 +126,7 @@ public class CompanyTypeController {
         CompanyType  companyType = companyTypeService.find(request.getParameter("id"));
 
         model.addAttribute("companyType",companyType);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_COMCPANYTYPE_LIST);
         return "companyType/look";
     }
 

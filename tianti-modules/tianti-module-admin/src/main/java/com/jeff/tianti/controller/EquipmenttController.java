@@ -64,7 +64,7 @@ public class EquipmenttController {
         model.addAttribute("page", page);
 //        model.addAttribute("statisMap", statisMap);
         model.addAttribute("equipmentQueryDTO", equipmentQueryDTO);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_EQUIPMENT_LIST);
 
         return "/equipment/list";
     }
@@ -84,7 +84,7 @@ public class EquipmenttController {
             equipment = equipmentService.find(id);
 
         model.addAttribute("equipment", equipment);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_EQUIPMENT_LIST);
         return "equipment/edit";
     }
 
@@ -126,7 +126,7 @@ public class EquipmenttController {
         Equipment  equipment = equipmentService.find(request.getParameter("id"));
 
         model.addAttribute("equipment",equipment);
-        model.addAttribute(Constants.MENU_NAME, Constants.MENU_TECH_LIST);
+        model.addAttribute(Constants.MENU_NAME, Constants.MENU_EQUIPMENT_LIST);
         return "equipment/look";
     }
 
